@@ -17,7 +17,7 @@ def trips(request):
     try:
         trips = DBSession.query(Trip).all()
     except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+        return Response("failed", content_type='text/plain', status_int=500)
     return {'trips':trips}
 
 @view_config(route_name='view_trip', renderer='templates/trip.pt')
@@ -26,7 +26,7 @@ def view_trip(request):
     try:
         trip = DBSession.query(Trip).filter( Trip.id == tripid ).one()
     except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+        return Response("failed", content_type='text/plain', status_int=500)
     return {'trip':trip}
 
 @view_config(route_name='map_trip', renderer='templates/trip_map.pt')
@@ -56,7 +56,7 @@ def add_plop(request):
         jsn['datetime'] = str( plop.datetime )
         return Response( json.dumps(jsn), content_type='application/json; charset=utf-8', status_int=200 )
     except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+        return Response("failed", content_type='text/plain', status_int=500)
 
 @view_config(route_name='add_trip')
 def add_trip(request):
