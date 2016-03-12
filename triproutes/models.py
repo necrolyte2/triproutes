@@ -1,3 +1,4 @@
+import os
 from sqlalchemy import (
     Column, Index, Integer,
     Text, Float, ForeignKey,
@@ -5,6 +6,9 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.engine.url import URL
+
 
 from sqlalchemy.orm import (
     scoped_session,
@@ -13,9 +17,24 @@ from sqlalchemy.orm import (
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-Base = declarative_base()
+# Try to pull database url from environment(for Heroku, or whatever)
+db_url = os.environ.get('DATABASE_URL', None)
+if db_url is not None:
+    try:
+        db = create_engine(os.environ['DATABASE_URL'])
+    except Exception as e:
+        print "Unable to connect with DATABASE_URL {0}".format(db_url)
+        raise e
+else:
+    db = None
 
+DBSession = scoped_session(
+    sessionmaker(
+        bind=db,
+        extension=ZopeTransactionExtension()
+    )
+)
+Base = declarative_base()
 
 class Trip(Base):
     __tablename__ = 'trip'
