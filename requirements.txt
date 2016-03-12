@@ -1,9 +1,0 @@
-certifi==14.5.14
-Jinja2==2.7.3
-MarkupSafe==0.23
-pycosat==0.6.1
-pycrypto==2.6.1
-PyYAML==3.11
-requests==2.5.1
-tornado==4.1
-wheel==0.26.0
