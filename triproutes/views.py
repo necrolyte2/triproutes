@@ -56,7 +56,8 @@ def add_plop(request):
         jsn['id'] = plop.id
         jsn['datetime'] = str( plop.datetime )
         return Response( json.dumps(jsn), content_type='application/json; charset=utf-8', status_int=200 )
-    except DBAPIError:
+    except DBAPIError as e:
+        print e
         return Response("failed", content_type='text/plain', status_int=500)
 
 @view_config(route_name='add_trip')
