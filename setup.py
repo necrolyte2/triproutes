@@ -19,9 +19,9 @@ requires = [
     'waitress',
     ]
 
-setup(name='tutorial',
+setup(name='triproutes',
       version='0.0',
-      description='tutorial',
+      description='triproutes',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -36,12 +36,12 @@ setup(name='tutorial',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='tutorial',
+      test_suite='triproutes',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]
-      main = tutorial:main
+      main = triproutes:main
       [console_scripts]
-      initialize_tutorial_db = tutorial.scripts.initializedb:main
+      initialize_triproutes_db = triproutes.scripts.initializedb:main
       """,
       )
