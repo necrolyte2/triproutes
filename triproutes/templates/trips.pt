@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="${request.locale_name}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="Pylons Project">
+    <link rel="shortcut icon" href="${request.static_url('tutorial:static/pyramid-16x16.png')}">
+
+    <title>Trips</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="${request.static_url('tutorial:static/theme.css')}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="starter-template">
+      <div class="container">
+        <h2>Trips Taken</h2>
+        <div class="content">
+            <table class='table' id='trip-table'>
+                <tr>
+                    <th>Trip Name</th>
+                    <th>Trip Start</th>
+                    <th>Trip End</th>
+                    <th><button id='addtrip-btn' type="button" class="btn btn-success btn-xs">Add Trip</button></th>
+                </tr>
+                <tr tal:repeat="trip trips">
+                    <td><a href='/trips/${trip.id}'>${trip.name}</a></td>
+                    <tal:block tal:condition="trip.plops">
+                        <td>${trip.plops[0].datetime}</td>
+                        <td>${trip.plops[-1].datetime}</td>
+                    </tal:block>
+                    <tal:block tal:condition="not:trip.plops">
+                        <td>-</td>
+                        <td>-</td>
+                    </tal:block>
+                    <td>
+                        <button onClick="window.open('/trips/${trip.id}','_self');" type="button" class="btn btn-warning btn-xs">Edit Trip</button>
+                        <button id='completetrip-btn-${trip.id}' tal:condition="not:trip.complete" type="button" class="btn btn-primary btn-xs" onClick="complete_trip(${trip.id})">Complete Trip</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+          <div class="copyright">
+            Copyright © Tyghe Vallard
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type='text/javascript'>
+        function append_trip( data, textStatus, jqXHR ) {
+            trip = data;
+            var id = trip['id'];
+            var name = trip['name'];
+            $('#trip-table').append(
+                '<tr> \
+                    <td><a href="/trips/'+ id +'">'+ name +'</a></td>\
+                    <td>-</td>\
+                    <td>-</td>\
+                    <td><button onClick="window.open(\'/trips/'+ id +'\', \'_self\');" type="button" class="btn btn-warning btn-xs">Edit Trip</button></td>\
+                </tr>'
+            );
+        }
+        function add_trip( ) {
+            $.ajax({
+                url: "/trips/add",
+                type: 'POST',
+                success: append_trip,
+                error: function(err) { // Fail
+                    alert( "Error: "+ err.statusText );
+                }
+            });
+        }
+        function remove_trip_row(data, textStatus, jqXHR) {
+            var tripId = data;
+            var btn = $('#completetrip-btn-'+ tripId);
+            btn.hide();
+        }
+
+        function complete_trip(tripId) {
+            $.ajax({
+                url: "/trips/"+ tripId + "/complete",
+                type: 'POST',
+                success: remove_trip_row,
+                error: function(err) { // Fail
+                    alert( "Error: "+ err.statusText );
+                }
+            });
+        }
+        $(document).ready(function() {
+            $('#addtrip-btn').click(add_trip);
+        });
+    </script>
+  </body>
+</html>
