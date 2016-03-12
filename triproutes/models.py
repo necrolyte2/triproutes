@@ -1,7 +1,7 @@
 from sqlalchemy import (
     Column, Index, Integer,
     Text, Float, ForeignKey,
-    Boolean,
+    Boolean, BigInteger,
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
@@ -37,7 +37,7 @@ class Plop(Base):
     id = Column(Integer, primary_key=True)
     lat = Column(Float)
     lng = Column(Float)
-    timestamp = Column(Integer)
+    timestamp = Column(BigInteger)
     annotation = Column(Text)
     trip_id = Column(Integer, ForeignKey('trip.id'))
 
