@@ -7,10 +7,7 @@ from .models import (
     Base,
     )
 
-
-def main(global_config, **settings):
-    """ This function returns a Pyramid WSGI application.
-    """
+def get_db_engine(**settings):
     # Try to pull database url from environment(for Heroku, or whatever)
     db_url = os.environ.get('DATABASE_URL', None)
     if db_url is not None:
@@ -21,6 +18,12 @@ def main(global_config, **settings):
             raise e
     else:
         engine = engine_from_config(settings, 'sqlalchemy.')
+    return engine
+
+def main(global_config, **settings):
+    """ This function returns a Pyramid WSGI application.
+    """
+    engine = get_db_engine(**settings)
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     config = Configurator(settings=settings)

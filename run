@@ -2,5 +2,6 @@
 set -e
 echo "Running setup.py"
 python setup.py develop
+initialize_triproutes_db production.ini
 echo "Running app"
 python runapp.py

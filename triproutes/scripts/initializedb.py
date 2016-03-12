@@ -18,13 +18,13 @@ from ..models import (
     Base,
     )
 
+from .. import get_db_engine
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
     print('usage: %s <config_uri> [var=value]\n'
           '(example: "%s development.ini")' % (cmd, cmd))
     sys.exit(1)
-
 
 def main(argv=sys.argv):
     if len(argv) < 2:
@@ -33,8 +33,16 @@ def main(argv=sys.argv):
     options = parse_vars(argv[2:])
     setup_logging(config_uri)
     settings = get_appsettings(config_uri, options=options)
-    engine = engine_from_config(settings, 'sqlalchemy.')
+    engine = get_db_engine(**settings)
+    #engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
+    # Really crappy way to see if db is already init
+    try:
+        DBSession.query(Trip).all()
+        print "DB is already initialized"
+        return
+    except:
+        pass
     Base.metadata.create_all(engine)
 
     with transaction.manager:
