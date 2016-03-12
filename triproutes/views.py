@@ -16,8 +16,9 @@ from .models import (
 def trips(request):
     try:
         trips = DBSession.query(Trip).all()
-    except DBAPIError:
-        return Response("failed", content_type='text/plain', status_int=500)
+    except DBAPIError as e:
+        print e
+        return Response("Error getting trips from db", content_type='text/plain', status_int=500)
     return {'trips':trips}
 
 @view_config(route_name='view_trip', renderer='templates/trip.pt')

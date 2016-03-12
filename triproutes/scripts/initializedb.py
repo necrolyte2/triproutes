@@ -38,8 +38,9 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
 
     with transaction.manager:
-        trip2 = Trip( 'Walking Home' )
-        DBSession.add(trip2)
+        example_trip = Trip('Example Trip')
+        DBSession.add(example_trip)
+    '''
         trip = Trip( '#2 Bus Home' ) 
         trip.complete = True
         DBSession.add(trip)
@@ -53,3 +54,4 @@ def main(argv=sys.argv):
         )
         for plop in plops:
             DBSession.add(plop)
+    '''
