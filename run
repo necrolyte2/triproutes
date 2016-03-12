@@ -2,11 +2,5 @@
 set -e
 echo "Running setup.py"
 python setup.py develop
-if [ -f triproutes.sqlite ]
-then
-	initialize_triproutes_db production.ini
-else
-    echo "database already initialized $PWD"
-fi
 echo "Running app"
 python runapp.py
