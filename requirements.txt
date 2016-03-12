@@ -1,7 +1,4 @@
-backports.ssl-match-hostname==3.4.0.2
 certifi==14.5.14
-conda==3.19.0
-conda-env==2.4.5
 Jinja2==2.7.3
 MarkupSafe==0.23
 pycosat==0.6.1
