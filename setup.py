@@ -19,6 +19,9 @@ requires = [
     'waitress',
     ]
 
+if os.environ.get('DATABASE_URL', False):
+    requires.append('psycopg2')
+
 setup(name='triproutes',
       version='0.0',
       description='triproutes',
@@ -29,9 +32,9 @@ setup(name='triproutes',
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         ],
-      author='',
-      author_email='',
-      url='',
+      author='Tyghe Vallard',
+      author_email='vallardt@gmail.com',
+      url='http://www.tygertown.us',
       keywords='web wsgi bfg pylons pyramid',
       packages=find_packages(),
       include_package_data=True,

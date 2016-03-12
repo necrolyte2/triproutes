@@ -7,4 +7,3 @@ PyYAML==3.11
 requests==2.5.1
 tornado==4.1
 wheel==0.26.0
-psycopg2
