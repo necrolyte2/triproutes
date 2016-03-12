@@ -1,4 +1,3 @@
-import os
 from sqlalchemy import (
     Column, Index, Integer,
     Text, Float, ForeignKey,
@@ -17,20 +16,8 @@ from sqlalchemy.orm import (
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-# Try to pull database url from environment(for Heroku, or whatever)
-db_url = os.environ.get('DATABASE_URL', None)
-if db_url is not None:
-    try:
-        db = create_engine(os.environ['DATABASE_URL'])
-    except Exception as e:
-        print "Unable to connect with DATABASE_URL {0}".format(db_url)
-        raise e
-else:
-    db = None
-
 DBSession = scoped_session(
     sessionmaker(
-        bind=db,
         extension=ZopeTransactionExtension()
     )
 )
