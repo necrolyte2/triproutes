@@ -1,4 +1,8 @@
 #!/bin/bash
 set -e
 python setup.py develop
+if [ -f triproutes.sqlite ]
+then
+	initialize_triproutes_db production.ini
+fi
 python runapp.py
