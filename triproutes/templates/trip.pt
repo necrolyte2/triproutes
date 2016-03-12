@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pyramid web application">
     <meta name="author" content="Pylons Project">
-    <link rel="shortcut icon" href="${request.static_url('tutorial:static/pyramid-16x16.png')}">
+    <link rel="shortcut icon" href="${request.static_url('triproutes:static/pyramid-16x16.png')}">
 
     <title>Trips</title>
 
@@ -16,8 +16,8 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
-    <link href="${request.static_url('tutorial:static/theme.css')}" rel="stylesheet">
-    <link href="${request.static_url('tutorial:static/datetimepicker.css')}" rel="stylesheet">
+    <link href="${request.static_url('triproutes:static/theme.css')}" rel="stylesheet">
+    <link href="${request.static_url('triproutes:static/datetimepicker.css')}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -76,11 +76,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="${request.static_url('tutorial:static/moment.min.js')}"></script>
+    <script src="${request.static_url('triproutes:static/moment.min.js')}"></script>
     <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-    <script src="${request.static_url('tutorial:static/bootstrap-datetimepicker.min.js')}"></script>
+    <script src="${request.static_url('triproutes:static/bootstrap-datetimepicker.min.js')}"></script>
     <script type='text/javascript'>
         function append_plop( data, textStatus, jqXHR ) {
             var id = data['id'];
