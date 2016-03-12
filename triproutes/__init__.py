@@ -1,6 +1,6 @@
 import os
 from pyramid.config import Configurator
-from sqlalchemy import engine_from_config
+from sqlalchemy import engine_from_config, create_engine
 
 from .models import (
     DBSession,

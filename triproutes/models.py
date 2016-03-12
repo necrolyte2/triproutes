@@ -5,8 +5,6 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.engine.url import URL
 
 
 from sqlalchemy.orm import (
